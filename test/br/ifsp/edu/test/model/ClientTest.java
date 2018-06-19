@@ -12,9 +12,9 @@ class ClientTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		server = new Server(12345);
+		/*server = new Server(12345);
 		server.connect();
-		server.start();
+		server.start();*/
 	}
 
 	@Test

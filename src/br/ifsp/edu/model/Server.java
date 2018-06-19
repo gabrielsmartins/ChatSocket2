@@ -15,37 +15,25 @@ import java.util.ArrayList;
 public class Server extends Thread{
 	
 	private static ArrayList<BufferedWriter>clientes;  
-	private ServerSocket serverSocket;
-	private int port;
 	private Socket con;
 	private String nome;
 	private InputStream in;  
 	private InputStreamReader inr;  
 	private BufferedReader bfr;
 	
-	public Server(int port) {
+	public Server(Socket con) {
+		this.con = con;
 		this.clientes = new ArrayList<>();
+		 try {
+	         in  = con.getInputStream();
+	         inr = new InputStreamReader(in);
+	          bfr = new BufferedReader(inr);
+	   } catch (IOException e) {
+	          e.printStackTrace();
+	   }     
 	}
 	
-	public void connect() {
-		try {
-			this.serverSocket = new ServerSocket(this.port);
-			
-			while (true) {
-				System.out.println("Aguardando conexão...");
-				this.con = serverSocket.accept();
-	
-					in  = this.con.getInputStream();
-					inr = new InputStreamReader(in);
-			        bfr = new BufferedReader(inr);
-			    	System.out.println("Cliente conectado...");
-					this.start();
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
-	
+
 
 	
 	@Override

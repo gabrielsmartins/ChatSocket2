@@ -33,7 +33,6 @@ public class ClientView extends JFrame {
 	private JScrollPane scroll;
 
 	public ClientView() {
-		this.setTitle("Servidor");
 		this.initComps();
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);

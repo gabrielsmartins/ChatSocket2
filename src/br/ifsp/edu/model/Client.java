@@ -3,8 +3,6 @@ package br.ifsp.edu.model;
 import java.io.IOException;
 import java.net.Socket;
 
-import javax.swing.JOptionPane;
-
 public class Client {
 	
 	private Socket socket;
@@ -19,7 +17,6 @@ public class Client {
 	
 	public void connect() {
 		try {
-			JOptionPane.showMessageDialog(null, host + port);
 			this.socket = new Socket(this.host, this.port);
 		} catch (IOException e) {
 			e.printStackTrace();

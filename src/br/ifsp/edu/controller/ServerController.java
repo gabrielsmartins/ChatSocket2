@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import br.ifsp.edu.model.Server;
+import br.ifsp.edu.model.Servidor;
 import br.ifsp.edu.view.ServerView;
 
 public class ServerController {
@@ -37,8 +38,24 @@ public class ServerController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int port = Integer.parseInt(view.getTxtPorta().getText());
-					server = new Server(port);
-					server.connect();
+					
+					
+					try {
+						ServerSocket serverSocket = new ServerSocket(port);
+	
+						while (true) {
+							 System.out.println("Aguardando conexão...");
+						     Socket con = serverSocket.accept();
+						     System.out.println("Cliente conectado...");
+						     Thread t = new Servidor(con);
+						      t.start();   
+						}
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					
+					
+					
 					view.getLblStatusValue().setText("Conectado");
 					view.getBtnConectar().setEnabled(false);
 					view.getTxtPorta().setEnabled(false);

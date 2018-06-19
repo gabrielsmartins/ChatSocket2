@@ -28,6 +28,7 @@ public class Servidor extends Thread {
 	  
 	  public Servidor(Socket con){
 		   this.con = con;
+		   this.clientes = new ArrayList<>();
 		   try {
 		         in  = con.getInputStream();
 		         inr = new InputStreamReader(in);

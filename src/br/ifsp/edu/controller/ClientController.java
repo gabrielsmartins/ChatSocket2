@@ -12,6 +12,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import br.ifsp.edu.model.Client;
+import br.ifsp.edu.model.Cliente;
 import br.ifsp.edu.view.ClientView;
 
 public class ClientController {
@@ -30,13 +31,13 @@ public class ClientController {
 		this.client.connect();
 		this.loadListeners();
 		this.view.setVisible(true);
+		this.view.setTitle(view.getTxtNome().getText());
 		try {
 			this.ou = this.client.getSocket().getOutputStream();
-			this.ouw = new OutputStreamWriter(ou);
-			this.bfw = new BufferedWriter(ouw);
+			this.ouw = new OutputStreamWriter(this.ou);
+			this.bfw = new BufferedWriter(this.ouw);
 			this.bfw.write(this.view.getTxtNome().getText()+"\r\n");
 			this.bfw.flush();
-			this.escutar();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -92,8 +93,7 @@ public void enviarMensagem(String msg) throws IOException{
 		   BufferedReader bfr = new BufferedReader(inr);
 		   String msg = "";
 		                          
-		    while(!"Sair".equalsIgnoreCase(msg))
-		                                     
+		    while(!"Sair".equalsIgnoreCase(msg))                  
 		       if(bfr.ready()){
 		         msg = bfr.readLine();
 		       if(msg.equals("Sair"))
@@ -113,6 +113,12 @@ public void enviarMensagem(String msg) throws IOException{
 	 }
 	
 	public static void main(String[] args) {
-		new ClientController();
+		ClientController cliente =  new ClientController();
+				try {
+					cliente.escutar();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 	}
 }
